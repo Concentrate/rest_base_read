@@ -1,3 +1,11 @@
+CREATE database if not EXISTS test DEFAULT charset utf8;
+use test;
+-- CREATE TABLE user if not EXISTS DEFAULT charset utf8;
+-- CREATE TABLE role if not EXISTS DEFAULT charset utf8;
+-- CREATE TABLE user_role if not EXISTS DEFAULT charset utf8;
+-- CREATE TABLE permission if not EXISTS DEFAULT charset utf8;
+-- CREATE TABLE role_permission if not EXISTS DEFAULT charset utf8;
+
 -- 初始化管理员用户 admin admin2017
 insert into user(id,username,name,salt,pwd,enable,del,type,register_time,update_time) VALUES(1,'admin','admin','Jm1tRIWU2o42!OVb','6f4dd2230a5d6a68e5c13ca7b5a681eb',1,0,1,NOW(),NOW());
 

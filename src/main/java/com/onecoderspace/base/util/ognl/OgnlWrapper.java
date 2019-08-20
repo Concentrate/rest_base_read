@@ -89,7 +89,6 @@ public class OgnlWrapper {
 		String json = "{\"user\":{\"name\":\"123\"}}";
 		Map<?, ?> map = JacksonHelper.fromJson(json, Map.class);
 		OgnlWrapper ognlWrapper = new OgnlWrapper(map);
-		System.err.println(ognlWrapper.get("user.name"));
 	}
 
 }
