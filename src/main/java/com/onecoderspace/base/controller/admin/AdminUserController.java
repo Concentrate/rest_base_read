@@ -106,6 +106,7 @@ public class AdminUserController {
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
 	public Return save(User user) {
 		int currentUid = LoginSessionHelper.getCurrentUserId();
+		// 写的真烂，放controller 层去处理这里业务逻辑，放service 层合适
 		if (user.getId() != null && user.getId() != 0) {
 			User old = userService.findById(user.getId());
 			if (old == null) {

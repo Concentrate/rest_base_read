@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.onecoderspace.base.util.SaltMD5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -28,17 +29,17 @@ import com.onecoderspace.base.service.UserService;
 
 
 public class MyShiroRealm extends AuthorizingRealm {
-	private static final Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
+    private static final Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private UserRoleService userRoleService;
-    
+
     @Autowired
     private RoleService roleService;
-    
+
     @Autowired
     private RolePermissionService rolePermissionService;
 
@@ -55,6 +56,12 @@ public class MyShiroRealm extends AuthorizingRealm {
             // 返回null的话，就会导致任何用户访问被拦截的请求时，都会自动跳转到unauthorizedUrl指定的地址
             return null;
         }
+        // 这里没做密码校验，我都服了,还是我加上吧
+
+        String credi = String.valueOf(token.getCredentials());
+        if (!SaltMD5Util.encode(user.getPwd(), user.getSalt()).equals(credi)) {
+            return null;
+        }
 
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getId(),
                 user.getPwd(), getName());
@@ -65,7 +72,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        	/*
+            /*
 		 * 当没有使用缓存的时候，不断刷新页面的话，这个代码会不断执行，
 		 * 当其实没有必要每次都重新设置权限信息，所以我们需要放到缓存中进行管理；
 		 * 当放到缓存中时，这样的话，doGetAuthorizationInfo就只会执行一次了，
@@ -81,17 +88,17 @@ public class MyShiroRealm extends AuthorizingRealm {
 
         Set<Integer> roleIds = userRoleService.findRoleIds(userId);
         Set<Role> roles = roleService.findByIds(roleIds);
-        for(Role role : roles){
-        	authorizationInfo.addRole(role.getCode());
+        for (Role role : roles) {
+            authorizationInfo.addRole(role.getCode());
         }
 
         //设置权限信息.
         List<Permission> permissions = rolePermissionService.getPermissions(roleIds);
-        Set<String> set = new HashSet<String>(permissions.size()*2);
-        for(Permission permission : permissions){
-        	if(StringUtils.isNotBlank(permission.getCode())){
-        		set.add(permission.getCode());
-        	}
+        Set<String> set = new HashSet<String>(permissions.size() * 2);
+        for (Permission permission : permissions) {
+            if (StringUtils.isNotBlank(permission.getCode())) {
+                set.add(permission.getCode());
+            }
         }
         authorizationInfo.setStringPermissions(set);
         return authorizationInfo;
