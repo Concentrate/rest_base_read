@@ -132,6 +132,7 @@ public class AdminUserController {
 			user.setRegisterTime(new Timestamp(System.currentTimeMillis()));
 
 		}
+		// 更新人和更新时间这个还是挺好的意图的
 		user.setUpdator(currentUid);
 		user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 

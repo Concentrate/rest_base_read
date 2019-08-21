@@ -29,8 +29,11 @@ import com.onecoderspace.base.filter.CsrfFilter;
 import com.onecoderspace.base.filter.ShiroSessionFilter;
 import com.onecoderspace.base.filter.XssFilter;
 
+// 这个可以好好读读，filter 过滤和安全相关
+
 @Configuration
 public class WebConfig {
+
 
 	@Autowired
 	private RedisConnectionFactory redisConnectionFactory;
