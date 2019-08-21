@@ -54,7 +54,7 @@ public class UploadController {
 		for (MultipartFile file : files) {
 			String name = file.getOriginalFilename();
 			String suffix = "";
-			if(suffix.lastIndexOf(".") != -1){
+			if(name.lastIndexOf(".") != -1){
 				suffix = name.substring(name.lastIndexOf("."));
 			}
 			if (StringUtil.isBlank(suffix)) {
@@ -87,7 +87,7 @@ public class UploadController {
 		for (MultipartFile file : files) {
 			String name = file.getOriginalFilename();
 			String suffix = "";
-			if(suffix.lastIndexOf(".") != -1){
+			if(name.lastIndexOf(".") != -1){
 				suffix = name.substring(name.lastIndexOf("."));
 			}
 			name = String.format("%s-%s%s",DateUtils.getCurrentTime("yyyyMMdd"),getRandomUniqName(), suffix);
