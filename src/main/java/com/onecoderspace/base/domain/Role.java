@@ -13,7 +13,7 @@ import com.onecoderspace.base.component.common.domain.BaseModel;
  * 角色
  */
 @Entity
-@Table(name = "role")
+@Table(name = "role1")
 public class Role implements BaseModel<Integer>{
 	
 	private static final long serialVersionUID = 254681740752863107L;

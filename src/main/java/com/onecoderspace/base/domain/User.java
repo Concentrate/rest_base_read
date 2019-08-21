@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.onecoderspace.base.component.common.domain.BaseModel;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.sql.Timestamp;
 
@@ -40,9 +41,11 @@ public class User implements BaseModel<Integer>{
 	
 	@ApiModelProperty(value="密码（md5(mix(password,salt))）")
 	@Column(name="pwd",length=50)
+	@JsonIgnore
 	private String pwd;
 	
 	@ApiModelProperty(value="密码加密的“盐”")
+	@JsonIgnore
 	@Column(name="salt",length=16)
 	private String salt;
 	

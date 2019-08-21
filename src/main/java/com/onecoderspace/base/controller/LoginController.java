@@ -84,7 +84,6 @@ public class LoginController {
 			map.put("name", user.getName());
 			String uuidToken = UUID.randomUUID().toString();
 			map.put("token", uuidToken);
-			
 			currentUser.getSession().setTimeout(NumberUtils.toLong(serverSessionTimeout, 1800)*1000);
 			request.getSession().setAttribute("token",uuidToken );
 		} else {
